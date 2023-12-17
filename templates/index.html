@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Title</title>
+    <link rel="stylesheet" type="text/css" href="styles.css" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.7.2/socket.io.js"></script>
+  </head>
+  <body>
+    <script type="text/javascript">
+      $(document).ready(function () {
+        var socket = io.connect(window.location.origin);
+        socket.on("connect", function () {
+          socket.send("User connected!");
+        });
+
+        socket.on("message", function (data) {
+          $("#messages").append($("<p>").text(data));
+        });
+
+        $("#sendBtn").on("click", function () {
+          socket.send($("#username").val() + ": " + $("#message").val());
+          $("#message").val("");
+        });
+      });
+    </script>
+    <div id="messages"></div>
+    <input type="text" id="username" placeholder="Username" />
+    <input type="text" id="message" placeholder="Message" />
+    <button id="sendBtn">Send</button>
+  </body>
+</html>
