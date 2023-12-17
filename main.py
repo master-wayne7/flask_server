@@ -1,7 +1,7 @@
 from flask import Flask, render_template
 from flask_socketio import SocketIO, send
 
-app = Flask(__name__)
+app = Flask(__name__,static_url_path='/static')
 app.config['SECRET_KEY'] = "secret! 123"
 socketio = SocketIO(app, cors_allowed_origins="*")
 
